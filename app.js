@@ -1,6 +1,7 @@
 console.log("Addon is worked");
-// MetaStoryItemPreview MetaStoryItemPreviewLayout
-let startBlockOne = document.querySelector('.stories_feed_items_wrap');
+
+let startBlockOne = document.querySelector('.stories_feed_items');
+// let startBlockTwo = document.querySelector('.MetaStoryItemPreview');
 
 function evenAddBtnDownload() {
   let startSpawnDownloadBtn = setInterval(() => {
@@ -15,15 +16,26 @@ function evenAddBtnDownload() {
       }
 
       if(!downloadBtnExist.length) {
-        let storyBlock = document.getElementsByClassName('StoryViewerHeaderButton');
-        let storyMenu = storyBlock[0].firstElementChild.firstElementChild;
-
         let downloadBtn = document.createElement('div');
         downloadBtn.className = 'StoryMenuItem ui_actions_menu_item downloadBtn';
         downloadBtn.textContent = 'Скачать';
         downloadBtn.addEventListener('click', async function() { await downloadVideo(video[0].getAttribute('src')); });
 
-        storyMenu.append(downloadBtn);
+        let storyBlock = document.getElementsByClassName('StoryViewerHeaderButton');
+        let storyMenu;
+
+        if(storyBlock.length == 2) {
+          storyMenu = storyBlock[1].firstElementChild.firstElementChild;
+
+          let oldElement = storyMenu.lastElementChild;
+          storyMenu.removeChild(oldElement);
+
+          storyMenu.append(downloadBtn);
+          storyMenu.append(oldElement);
+        } else {
+          storyMenu = storyBlock[0].firstElementChild.firstElementChild;
+          storyMenu.append(downloadBtn);
+        }
       }
     }
   }, 500);
@@ -54,4 +66,4 @@ const downloadVideo = async (urlFull) => {
 }
 
 
-startBlockOne.addEventListener('click', function() { evenAddBtnDownload(); });
+startBlockOne.addEventListener('click', function() { evenAddBtnDownload(); }, false);
