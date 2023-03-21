@@ -2,7 +2,7 @@ console.log("Extension has started");
 
 let startBlockOne = document.querySelector('.stories_feed_items');
 
-function evenAddBtnDownload() {
+function eventAddBtnDownload() {
   let startSpawnDownloadBtn = setInterval(() => {
     let video = document.getElementsByClassName('stories_video');
 
@@ -80,5 +80,5 @@ const downloadVideo = async (urlFull) => {
 }
 
 if(startBlockOne) {
-  startBlockOne.addEventListener('click', function() { evenAddBtnDownload(); }, false);
+  startBlockOne.addEventListener('click', function() { eventAddBtnDownload(); }, false);
 }
