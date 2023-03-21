@@ -1,13 +1,14 @@
-console.log("Addon is worked");
+console.log("Extension has started");
 
 let startBlockOne = document.querySelector('.stories_feed_items');
-// let startBlockTwo = document.querySelector('.MetaStoryItemPreview');
 
 function evenAddBtnDownload() {
   let startSpawnDownloadBtn = setInterval(() => {
     let video = document.getElementsByClassName('stories_video');
 
     if(video.length) {
+      let videoLink = video[0].getAttribute('src');
+
       let downloadBtnExist = document.getElementsByClassName('StoryMenuItem ui_actions_menu_item downloadBtn');
       let endStoryShow = document.getElementsByClassName('stories_layer shown');
 
@@ -16,25 +17,38 @@ function evenAddBtnDownload() {
       }
 
       if(!downloadBtnExist.length) {
+        //скачать видео
         let downloadBtn = document.createElement('div');
         downloadBtn.className = 'StoryMenuItem ui_actions_menu_item downloadBtn';
         downloadBtn.textContent = 'Скачать';
-        downloadBtn.addEventListener('click', async function() { await downloadVideo(video[0].getAttribute('src')); });
+        downloadBtn.addEventListener('click', async function() { await downloadVideo(videoLink); });
+
+        //скопировать ссылку видео
+        let linkVideoBtn = document.createElement('div');
+        linkVideoBtn.className = 'StoryMenuItem ui_actions_menu_item';
+        linkVideoBtn.textContent = 'Скоп. ссылку';
+        linkVideoBtn.addEventListener('click', async function() {
+           await navigator.clipboard.writeText(videoLink);
+        });
+
 
         let storyBlock = document.getElementsByClassName('StoryViewerHeaderButton');
         let storyMenu;
 
-        if(storyBlock.length == 2) {
+        if(storyBlock.length === 2) {
           storyMenu = storyBlock[1].firstElementChild.firstElementChild;
 
           let oldElement = storyMenu.lastElementChild;
           storyMenu.removeChild(oldElement);
 
           storyMenu.append(downloadBtn);
+          storyMenu.append(linkVideoBtn);
           storyMenu.append(oldElement);
         } else {
           storyMenu = storyBlock[0].firstElementChild.firstElementChild;
+
           storyMenu.append(downloadBtn);
+          storyMenu.append(linkVideoBtn);
         }
       }
     }
@@ -65,5 +79,6 @@ const downloadVideo = async (urlFull) => {
   }
 }
 
-
-startBlockOne.addEventListener('click', function() { evenAddBtnDownload(); }, false);
+if(startBlockOne) {
+  startBlockOne.addEventListener('click', function() { evenAddBtnDownload(); }, false);
+}
