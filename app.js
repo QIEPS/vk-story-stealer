@@ -1,5 +1,12 @@
 console.log("Extension has started");
 
+// .stories_feed_items => блок с историями
+// .stories_video => блок с видео истории
+// .stories_video => блок с видео истории
+// .StoryMenuItem .ui_actions_menu_item => классы для кнопок в меню
+// .downloadBtn => класс кнопки "Скачать"
+// .StoryViewerHeaderButton => кнопка для открытия меню
+
 let storyBlock = document.querySelector('.stories_feed_items');
 
 window.onload = function() {
@@ -38,11 +45,11 @@ function eventAddBtnDownload() {
         });
 
 
-        let storyBlock = document.getElementsByClassName('StoryViewerHeaderButton');
+        let storyNavigationBtn = document.getElementsByClassName('StoryViewerHeaderButton');
         let storyMenu;
 
-        if(storyBlock.length === 2) {
-          storyMenu = storyBlock[1].firstElementChild.firstElementChild;
+        if(storyNavigationBtn.length === 2) {
+          storyMenu = storyNavigationBtn[1].firstElementChild.firstElementChild;
 
           let oldElement = storyMenu.lastElementChild;
           storyMenu.removeChild(oldElement);
@@ -51,7 +58,7 @@ function eventAddBtnDownload() {
           storyMenu.append(linkVideoBtn);
           storyMenu.append(oldElement);
         } else {
-          storyMenu = storyBlock[0].firstElementChild.firstElementChild;
+          storyMenu = storyNavigationBtn[0].firstElementChild.firstElementChild;
 
           storyMenu.append(downloadBtn);
           storyMenu.append(linkVideoBtn);
