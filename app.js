@@ -1,6 +1,12 @@
 console.log("Extension has started");
 
-let startBlockOne = document.querySelector('.stories_feed_items');
+let storyBlock = document.querySelector('.stories_feed_items');
+
+window.onload = function() {
+  if(document.getElementsByClassName('stories_video').length) {
+    eventAddBtnDownload();
+  }
+};
 
 function eventAddBtnDownload() {
   let startSpawnDownloadBtn = setInterval(() => {
@@ -79,6 +85,6 @@ const downloadVideo = async (urlFull) => {
   }
 }
 
-if(startBlockOne) {
-  startBlockOne.addEventListener('click', function() { eventAddBtnDownload(); }, false);
+if(storyBlock) {
+  storyBlock.addEventListener('click', function() { eventAddBtnDownload(); }, false);
 }
